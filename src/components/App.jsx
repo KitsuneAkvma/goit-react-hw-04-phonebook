@@ -24,11 +24,13 @@ export const App = () => {
     ) {
       return alert(`Contact "${name}" is already on the list`);
     }
-
-    setContacts([
+    const newContactsList = [
       { id: shortid.generate(), name: name, number: number },
       ...contacts,
-    ]);
+    ];
+    setContacts(newContactsList);
+
+    localStorage.setItem('contacts', JSON.stringify(newContactsList));
 
     form.reset();
   };
@@ -44,17 +46,17 @@ export const App = () => {
   const handleRemoveContact = e => {
     e.preventDefault();
 
-    setContacts(contacts.filter(contact => contact.id !== e.currentTarget.id));
+    const newContactsList = contacts.filter(
+      contact => contact.id !== e.currentTarget.id
+    );
+    setContacts(newContactsList);
+
+    localStorage.setItem('contacts', JSON.stringify(newContactsList));
   };
 
   useEffect(() => {
-    setContacts(JSON.parse(localStorage.getItem('contacts')) || contacts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setContacts(JSON.parse(localStorage.getItem('contacts')));
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   return (
     <>

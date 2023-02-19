@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { StyledForm } from './ContactCreationForm.styled';
 
 export const ContactCreationForm = props => {
-  const [onSubmit] = props;
+  const { onSubmit } = props;
   return (
     <StyledForm onSubmit={onSubmit}>
       <h1>Phonebook</h1>
